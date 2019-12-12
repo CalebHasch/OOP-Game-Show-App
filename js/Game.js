@@ -21,8 +21,11 @@ let gamePhrase;
      }
      handleInteraction(key) {
         key.disabled = true;
-        console.log(key.innerHTML());
-
+        if (gamePhrase.checkLetter(key) === 0) {
+           console.log('true')
+        } else {
+           console.log('false')
+        }
      }
      removeLife() {
         $('.tries img').eq(this.missed).remove();

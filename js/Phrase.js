@@ -21,9 +21,12 @@
      }
      checkLetter(key) {
         $('.letter').map(char => {
+            let correct = 0; 
             if (key.text() === char) {
                 this.showMatchedLetter(char);
+                correct += 1;
             }
+            return correct;
         });
      }
      showMatchedLetter(char) {
