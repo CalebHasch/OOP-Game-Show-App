@@ -1,11 +1,12 @@
 /* Treehouse FSJS Techdegree
  * Project 4 - OOP Game App
  * Phrase.js */
-
+//Phrase class with phrase property and 3 methods
  class Phrase {
      constructor(phrase) {
          this.phrase = phrase.toLowerCase();
      }
+     //creates and displays the word boxes hiding the phrase
      addPhraseToDisplay() {
          const charArray = this.phrase.split('');
          const $phraseUL = $('#phrase ul');
@@ -19,6 +20,7 @@
              }
          });
      }
+     // checks if guessed letter in the phrase and call showMatchedLetter if it is
      checkLetter(key) {
         let correct = 0; 
         $('.letter').map(char => {
@@ -26,14 +28,13 @@
                 this.showMatchedLetter(char);
                 correct += 1;
             }
-            //console.log(correct);
         });
         return correct;
      }
+     //unhides the letter(s) in the phrase
      showMatchedLetter(char) {
         $('.letter').eq(char).addClass('show')
         $('.letter').eq(char).removeClass('hide')
      }
  }
 
- const george = new Phrase('GEorge man');
