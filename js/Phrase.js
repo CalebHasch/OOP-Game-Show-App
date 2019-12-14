@@ -20,18 +20,19 @@
          });
      }
      checkLetter(key) {
+        let correct = 0; 
         $('.letter').map(char => {
-            let correct = 0; 
-            if (key.text() === char) {
+            if ($key.eq(key).text() === $('.letter').eq(char).text()) {
                 this.showMatchedLetter(char);
                 correct += 1;
             }
-            return correct;
+            //console.log(correct);
         });
+        return correct;
      }
      showMatchedLetter(char) {
-         char.addClass('show')
-         char. removeClass('hide')
+        $('.letter').eq(char).addClass('show')
+        $('.letter').eq(char).removeClass('hide')
      }
  }
 

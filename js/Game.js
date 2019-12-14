@@ -10,7 +10,7 @@ let gamePhrase;
          this.activePhrase = null;
      }
      startGame() {
-        $('#overlay').hide();
+        $('#overlay').slideUp(1500);
         this.activePhrase = this.getRandomPhrase();
         gamePhrase = new Phrase(this.activePhrase);
         gamePhrase.addPhraseToDisplay(); 
@@ -20,11 +20,15 @@ let gamePhrase;
         return this.phrases[randomNumber]
      }
      handleInteraction(key) {
-        key.disabled = true;
+        $key.eq(key).prop('disabled', true);
         if (gamePhrase.checkLetter(key) === 0) {
-           console.log('true')
+         $key.eq(key).addClass('wrong');
+         game.removeLife();
         } else {
-           console.log('false')
+         $key.eq(key).addClass('chosen');
+         if (this.checkForWin()) {
+            this.gameOver();
+         }
         }
      }
      removeLife() {
@@ -33,18 +37,31 @@ let gamePhrase;
         this.missed += 1;
         if (this.missed === 5) {
             this.gameOver();
-            console.log('boo');
         }
      }
+     checkForWin() {
+        let win = true;
+        $('.letter').map(letter => {
+           if ($('.letter').eq(letter).hasClass('hide')) {
+              win = false;
+           }
+        });
+        return win;
+     }
      gameOver() {
-         $('#overlay').show();
+         $('#overlay').slideDown(1250);
          if (this.missed === 5) {
             $('#overlay h1').text('You lose, maybe next time!')
-            $('#overlay').addClass('lose');
+            $('#overlay').removeClass('win').addClass('lose');
          } else {
             $('#overlay h1').text('Congrats you win! Play another game.');
-            $('#overlay').addClass('win');
+            $('#overlay').removeClass('lose').addClass('win');
         }
+        $('.letter').remove();
+        $('.space').remove();
+        $key.removeClass('wrong').removeClass('chosen').prop('disabled', false)
+        $('.tries img').remove();
+        $('.tries').append('<img src="images/liveHeart.png" alt="Heart Icon" height="35" width="30"></img>');
      }
  }
 
